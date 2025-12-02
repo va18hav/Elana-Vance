@@ -1,119 +1,219 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elena Vance - Business Strategy for Creatives</title>
-
-    <!-- Google Fonts -->
+    <title>Elana Vance | Executive Business Coaching</title>
+    <!-- Fonts: Inter (Sans) & Instrument Serif (Serif for headers) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link
-        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
         rel="stylesheet">
-
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Tailwind Configuration -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        cream: '#F9F6F0',
-                        terracotta: '#6B3E2E',
-                        darkgray: '#666666',
-                        forest: '#1F4E44',
-                        accentOrange: '#C4623B',
+                        slate: {
+                            50: '#F8FAFC',
+                            100: '#F1F5F9',
+                            200: '#E2E8F0',
+                            300: '#CBD5E1',
+                            400: '#94A3B8',
+                            500: '#64748B',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1E293B',
+                            900: '#0F172A',
+                            950: '#020617',
+                        },
+                        accent: {
+                            500: '#4F46E5',
+                            600: '#4338CA',
+                        }
                     },
                     fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['"Lato"', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     },
-                    borderRadius: {
-                        'lg': '12px',
+                    colors: {
+                        cream: {
+                            50: '#FFFCF5',
+                            100: '#FEF8E6',
+                            200: '#FDF0C7',
+                        },
+                        mauve: {
+                            50: '#F7F5FB',
+                            100: '#F0EBF8',
+                            200: '#E9D5FF',
+                            500: '#8B5CF6', // Example accent
+                        }
                     },
-                    spacing: {
-                        '18': '4.5rem',
-                        '22': '5.5rem',
+                    letterSpacing: {
+                        tighter: '-0.04em',
+                        tight: '-0.02em',
+                    },
+                    transitionTimingFunction: {
+                        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
                     }
                 }
             }
         }
     </script>
-
     <style>
-        body {
-            background-color: #F9F6F0;
-            color: #666666;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            color: #6B3E2E;
+        ::-webkit-scrollbar-track {
+            background: #F8FAFC;
         }
 
-        .btn-hover {
-            transition: all 0.3s ease;
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 10px;
         }
 
-        .btn-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
         }
 
-        /* Custom underline animation for links */
-        .nav-link {
-            position: relative;
+        /* Animation Utilities */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .nav-link::after {
-            content: '';
+        .reveal-up.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Side Slide Animations */
+        .slide-in-right-trigger {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-in-right-trigger.in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-left-trigger {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-in-left-trigger.in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Delays */
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        /* Sticky Scroll Image Transition */
+        .sticky-img {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.7s ease-out;
+            transform: scale(0.95);
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
+            top: 0;
             left: 0;
-            background-color: #6B3E2E;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
+        .sticky-img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Glass Effect */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* --- New Orbit Scatter Styles --- */
+        .orbit-container {
+            perspective: 1000px;
+        }
+
+        .orbit-item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4rem;
+            /* w-16 */
+            height: 4rem;
+            /* h-16 */
+            margin-left: -2rem;
+            margin-top: -2rem;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            /* Initial State: Circle radius 140px */
+            transform: rotate(var(--angle)) translateY(-140px) rotate(calc(var(--angle) * -1));
+            opacity: 0.7;
+        }
+
+        /* Scatter Hover Effect */
+        .orbit-parent:hover .orbit-item {
+            opacity: 1;
+            /* Expanded State: Circle radius 220px + Scale up */
+            transform: rotate(var(--angle)) translateY(-240px) rotate(calc(var(--angle) * -1)) scale(1.1);
+        }
+
+        /* Mobile adjustment for orbit */
+        @media (max-width: 768px) {
+            .orbit-item {
+                transform: rotate(var(--angle)) translateY(-100px) rotate(calc(var(--angle) * -1)) scale(0.8);
             }
 
-            100% {
-                transform: translateX(-50%);
+            .orbit-parent:hover .orbit-item {
+                transform: rotate(var(--angle)) translateY(-160px) rotate(calc(var(--angle) * -1)) scale(1);
             }
         }
 
-        .animate-scroll {
-            display: flex;
-            width: max-content;
-            animation: scroll 30s linear infinite;
+        /* Testimonial Slider Fade */
+        .testimonial-slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        /* Pause animation on hover for better UX */
-        .animate-scroll:hover {
-            animation-play-state: paused;
+        .testimonial-slide.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.5s ease-out forwards;
         }
 
-        @keyframes slideUp {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(100px);
+                transform: translateY(10px);
             }
 
             to {
@@ -122,487 +222,510 @@
             }
         }
 
-        .animate-slide-up {
-            animation: slideUp 1.3s ease-out forwards;
+        /* Text Glow Effect */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 10px rgba(139, 92, 246, 0.3);
+            color: #8B5CF6 !important;
+            /* Force accent color */
+            transition: all 0.5s ease;
         }
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .animate-slide-in-left {
-            animation: slideInLeft 1.3s ease-out forwards;
+        /* Mobile Service Card Active State */
+        .service-mobile-active {
+            border-color: #E9D5FF !important;
+            box-shadow: 0 20px 25px -5px rgba(240, 235, 248, 0.4), 0 8px 10px -6px rgba(240, 235, 248, 0.4) !important;
+            --tw-gradient-to: #FFFCF5 !important;
         }
     </style>
 </head>
 
-<body class="font-sans antialiased overflow-x-hidden">
+<body
+    class="bg-gradient-to-br from-cream-50 via-white to-mauve-50 text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-accent-500 selection:text-white">
 
-    <!-- Navigation Bar -->
-    <nav
-        class="sticky top-0 z-50 w-full py-6 px-4 md:px-8 flex justify-between items-center bg-cream/95 backdrop-blur-sm shadow-sm transition-all duration-300">
-        <div class="text-2xl font-serif font-bold tracking-wide text-terracotta">ELENA VANCE</div>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 border-b border-slate-100 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2 group cursor-pointer">
+                <div
+                    class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white group-hover:bg-accent-500 transition-colors duration-300">
+                    <span class="font-serif font-italic text-lg">E</span>
+                </div>
+                <span class="font-semibold text-sm tracking-tight text-slate-900">Elana Vance</span>
+            </div>
 
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex space-x-8 items-center">
-            <a href="#" class="nav-link text-terracotta font-medium">Home</a>
-            <a href="#services" class="nav-link text-terracotta font-medium">Work With Me</a>
-            <a href="#about" class="nav-link text-terracotta font-medium">My Story</a>
-            <a href="#" class="nav-link text-terracotta font-medium">Resources</a>
-            <a href="#" class="nav-link text-terracotta font-medium">Blog</a>
-            <a href="#contact" class="nav-link text-terracotta font-medium">Contact</a>
+            <div class="hidden md:flex gap-8 text-xs font-medium tracking-wide text-slate-500">
+                <a href="#services" class="hover:text-slate-900 transition-colors">Expertise</a>
+                <a href="#social-proof" class="hover:text-slate-900 transition-colors">Impact</a>
+                <a href="#methodology" class="hover:text-slate-900 transition-colors">Methodology</a>
+                <a href="#pricing" class="hover:text-slate-900 transition-colors">Plans</a>
+            </div>
+
+            <a href="#contact"
+                class="hidden md:flex items-center gap-2 bg-slate-900 text-white text-xs font-medium px-5 py-2.5 rounded-full hover:bg-slate-700 transition-all hover:gap-3 duration-300">
+                Book Consultation <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            </a>
         </div>
-
-        <a href="#"
-            class="hidden md:inline-block bg-accentOrange text-white px-6 py-3 rounded-lg font-semibold btn-hover">Book
-            a Call</a>
-
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-terracotta text-2xl">
-            <i class="ph ph-list"></i>
-        </button>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu"
-        class="fixed inset-0 bg-cream z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-center space-y-8">
-        <button id="close-menu-btn" class="absolute top-6 right-8 text-terracotta text-3xl">
-            <i class="ph ph-x"></i>
-        </button>
-        <a href="#" class="text-2xl text-terracotta font-serif" onclick="closeMenu()">Home</a>
-        <a href="#about" class="text-2xl text-terracotta font-serif" onclick="closeMenu()">My Story</a>
-        <a href="#services" class="text-2xl text-terracotta font-serif" onclick="closeMenu()">Work With Me</a>
-        <a href="#contact" class="text-2xl text-terracotta font-serif" onclick="closeMenu()">Contact</a>
-        <a href="#" class="bg-accentOrange text-white px-8 py-3 rounded-lg font-semibold text-xl"
-            onclick="closeMenu()">Book a Call</a>
-    </div>
-
     <!-- Hero Section -->
-    <header class="relative pt-12 pb-20 px-4 md:px-8 max-w-[1200px] mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <!-- Left Content -->
-            <div class="space-y-8 animate-slide-in-left">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-medium leading-tight">
-                    Turn your creative <br> <span class="italic text-accentOrange">passion</span> into an empire
+    <header class="relative pt-32 pb-24 px-6 md:pt-40 md:pb-32 overflow-hidden" id="hero-section">
+        <!-- Parallax Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+            <div class="parallax-bg absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-mauve-100/60 rounded-full blur-3xl mix-blend-multiply"
+                data-speed="0.05"></div>
+            <div class="parallax-bg absolute bottom-[-10%] left-[-10%] w-[700px] h-[700px] bg-cream-100/60 rounded-full blur-3xl mix-blend-multiply"
+                data-speed="-0.05"></div>
+            <div class="parallax-bg absolute top-[20%] left-[20%] w-[300px] h-[300px] bg-accent-500/5 rounded-full blur-2xl mix-blend-multiply"
+                data-speed="0.02"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="max-w-2xl slide-in-right-trigger">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/50 border border-slate-200/60 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-8 shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></span>
+                    Accepting New Executive Clients
+                </div>
+                <h1
+                    class="font-serif font-bold text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-slate-900 mb-8 drop-shadow-sm">
+                    Lead with <br>
+                    <span class="text-slate-500/80 relative italic">
+                        clarity
+                    </span> &amp; vision.
                 </h1>
-                <p class="text-lg md:text-xl text-darkgray max-w-md leading-relaxed">
-                    I help ambitious creatives and solopreneurs build sustainable, high-impact businesses without the
-                    burnout.
+                <p class="text-lg text-slate-600 leading-relaxed max-w-md mb-10 font-medium">
+                    Strategic coaching for high-growth founders and executives. We dismantle the noise so you can build
+                    the legacy.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#"
-                        class="bg-forest text-white px-8 py-4 rounded-lg font-semibold text-center btn-hover">Work With
-                        Me</a>
-                    <a href="#about"
-                        class="border-2 border-forest text-forest px-8 py-4 rounded-lg font-semibold text-center hover:bg-forest hover:text-white transition-colors duration-300">Read
-                        My Story</a>
-                </div>
-
-                <!-- Stats Row & Mobile Image Container -->
-                <div class="pt-12 flex gap-4 lg:block">
-                    <!-- Stats (Mobile: 50% width, Desktop: Full width row) -->
-                    <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 w-1/2 lg:w-full">
-                        <div>
-                            <div class="text-4xl font-bold text-terracotta font-serif">10+</div>
-                            <div class="text-sm text-darkgray mt-1">Years Strategy</div>
-                        </div>
-                        <div>
-                            <div class="text-4xl font-bold text-terracotta font-serif">500+</div>
-                            <div class="text-sm text-darkgray mt-1">Creatives Mentored</div>
-                        </div>
-                        <div>
-                            <div class="text-4xl font-bold text-terracotta font-serif">3x</div>
-                            <div class="text-sm text-darkgray mt-1">Revenue Growth</div>
-                        </div>
-                    </div>
-
-                    <!-- Mobile Hero Image (Beside stats, same height) -->
-                    <div class="w-1/2 lg:hidden relative rounded-lg overflow-hidden">
-                        <img src="assets/Elana.png" alt="Elena Vance"
-                            class="absolute inset-0 w-full h-full object-cover object-top">
-                    </div>
+                    <button
+                        class="bg-slate-900 text-white px-8 py-4 rounded-full text-sm font-bold hover:bg-slate-800 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-900/20 duration-300">
+                        Start Your Transformation
+                    </button>
+                    <button
+                        class="px-8 py-4 rounded-full text-sm font-bold text-slate-700 hover:text-slate-900 border border-slate-200 hover:border-slate-400 bg-white/50 backdrop-blur-sm transition-all flex items-center justify-center gap-2 hover:bg-white">
+                        <i data-lucide="play-circle" class="w-4 h-4"></i> Watch Introduction
+                    </button>
                 </div>
             </div>
 
-            <!-- Right Image -->
-            <div class="hidden lg:flex relative justify-center lg:justify-end animate-slide-up -z-10">
-                <img src="assets/Elana.png" alt="Elena Vance" id="hero-image" class="will-change-transform">
+            <div class="relative h-[550px] w-full slide-in-left-trigger delay-200 hidden md:block perspective-1000">
+
+                <img src="assets/Elana.png" alt="Elana Vance Coaching"
+                    class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-[1.5s]">
+
+                <!-- Floating Badge 1 -->
+                <div class="absolute bottom-12 left-[-20px] bg-white/95 backdrop-blur-md p-5 rounded-xl shadow-xl border border-white/50 max-w-xs parallax-element"
+                    data-speed="0.06">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="flex -space-x-2">
+                            <div class="w-6 h-6 rounded-full bg-slate-200 border-2 border-white"></div>
+                            <div class="w-6 h-6 rounded-full bg-slate-300 border-2 border-white"></div>
+                            <div class="w-6 h-6 rounded-full bg-slate-400 border-2 border-white"></div>
+                        </div>
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">500+
+                            Executives</span>
+                    </div>
+                    <p class="font-serif text-lg italic text-slate-800 leading-tight">"Elana changed how I view
+                        leadership entirely."</p>
+                </div>
+
+                <!-- Floating Badge 2 -->
+                <div class="absolute top-12 right-[-10px] bg-white/90 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-white/50 parallax-element"
+                    data-speed="0.08">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="trending-up" class="w-4 h-4 text-accent-500"></i>
+                        <span class="text-xs font-bold text-slate-900">Top 1% Coach</span>
+                    </div>
+                </div>
             </div>
+        </div>
         </div>
     </header>
 
-    <!-- Services List Section -->
-    <section id="services" class="py-24 px-4 md:px-8 bg-white z-10">
-        <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div class="mb-16 lg:mb-0 lg:col-span-5 lg:sticky lg:top-0 lg:h-screen flex flex-col justify-center">
-                <h2 class="text-4xl md:text-5xl font-serif font-medium mb-6">Ways we can <br> work together</h2>
-                <p class="text-darkgray max-w-2xl">From deep-dive strategy sessions to ongoing mentorship, I have a
-                    pathway for every stage of your journey.</p>
-            </div>
-
-            <div class="space-y-24 lg:col-span-7">
-                <!-- Service Row 1 -->
-                <div
-                    class="lg:sticky lg:top-40 group bg-cream p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-transparent hover:border-forest/10 flex flex-col md:flex-row items-start md:items-center gap-6 relative overflow-hidden">
-                    <div class="text-forest text-4xl">
-                        <i class="ph ph-target"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-serif font-medium mb-2">1:1 Signature Coaching</h3>
-                        <p class="text-darkgray">A 6-month partnership to completely overhaul your business model and
-                            mindset. A 6-month partnership to completely overhaul your business model and
-                            mindset. A 6-month partnership to completely overhaul your business model and
-                            mindset.</p>
-                    </div>
-                    <button
-                        class="w-12 h-12 rounded-full border border-forest text-forest flex items-center justify-center group-hover:bg-forest group-hover:text-white transition-colors">
-                        <i class="ph ph-arrow-up-right text-xl"></i>
-                    </button>
-                </div>
-
-                <!-- Service Row 2 -->
-                <div
-                    class="lg:sticky lg:top-40 group bg-cream p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-transparent hover:border-forest/10 flex flex-col md:flex-row items-start md:items-center gap-6">
-                    <div class="text-forest text-4xl">
-                        <i class="ph ph-shapes"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-serif font-medium mb-2">The Creative Mastermind</h3>
-                        <p class="text-darkgray">Join a small group of high-level creatives for weekly coaching and
-                            accountability. Join a small group of high-level creatives for weekly coaching and
-                            accountability. Join a small group of high-level creatives for weekly coaching and
-                            accountability.</p>
-                    </div>
-                    <button
-                        class="w-12 h-12 rounded-full border border-forest text-forest flex items-center justify-center group-hover:bg-forest group-hover:text-white transition-colors">
-                        <i class="ph ph-arrow-up-right text-xl"></i>
-                    </button>
-                </div>
-
-                <!-- Service Row 3 -->
-                <div
-                    class="lg:sticky lg:top-40 group bg-cream p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-transparent hover:border-forest/10 flex flex-col md:flex-row items-start md:items-center gap-6">
-                    <div class="text-forest text-4xl">
-                        <i class="ph ph-chart-line-up"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-serif font-medium mb-2">Digital Strategy Audit</h3>
-                        <p class="text-darkgray">A one-time deep dive into your online presence with a roadmap for quick
-                            wins. A one-time deep dive into your online presence with a roadmap for quick
-                            wins. A one-time deep dive into your online presence with a roadmap for quick
-                            wins.</p>
-                    </div>
-                    <button
-                        class="w-12 h-12 rounded-full border border-forest text-forest flex items-center justify-center group-hover:bg-forest group-hover:text-white transition-colors">
-                        <i class="ph ph-arrow-up-right text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About/Mission Section -->
-    <section id="about" class="py-24 px-4 md:px-8 max-w-[1200px] mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <!-- Left Image Layered -->
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Elena Vance" class="rounded-lg shadow-lg w-full object-cover h-[500px]">
-            </div>
-
-            <!-- Right Content -->
-            <div>
-                <h2 class="text-4xl md:text-5xl font-serif font-medium mb-6">Hi, I'm Elena. <br> Your partner in growth.
+    <!-- Services / Value Prop Grid -->
+    <section id="services" class="py-24 px-6 bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 max-w-2xl reveal-up">
+                <h2 class="font-serif text-4xl md:text-5xl text-slate-900 tracking-tight mb-4">Precision coaching for
+                    <span class="italic text-slate-500">complex challenges.</span>
                 </h2>
-                <p class="text-darkgray mb-12 leading-relaxed">
-                    I spent a decade in corporate marketing before realizing my true passion was helping individual
-                    creators own their worth. I believe you shouldn't have to choose between a profitable business and a
-                    creative life you love.
-                </p>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                    <div>
-                        <div class="text-forest text-4xl mb-4"><i class="ph ph-lightbulb"></i></div>
-                        <h4 class="text-xl font-serif font-bold mb-2 text-terracotta">Strategic Vision</h4>
-                        <p class="text-sm text-darkgray">I see the big picture for your brand even when you're stuck in
-                            the weeds.</p>
-                    </div>
-                    <div>
-                        <div class="text-forest text-4xl mb-4"><i class="ph ph-puzzle-piece"></i></div>
-                        <h4 class="text-xl font-serif font-bold mb-2 text-terracotta">Holistic Approach</h4>
-                        <p class="text-sm text-darkgray">Business growth that honors your personal wellbeing and
-                            creative energy.</p>
-                    </div>
-                </div>
+                <p class="text-base text-slate-500">We move beyond general advice to specific, actionable strategies
+                    tailored to your organizational hierarchy.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- Why Choose Us Section -->
-    <section class="py-24 px-4 md:px-8 bg-white">
-        <div class="max-w-[1200px] mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <!-- Left List -->
-                <div class="order-2 lg:order-1">
-                    <h2 class="text-4xl md:text-5xl font-serif font-medium mb-12">Why partner with me?</h2>
-                    <div class="space-y-8">
-                        <div class="flex gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-accentOrange text-xl flex-shrink-0">
-                                01</div>
-                            <div>
-                                <h4 class="text-xl font-serif font-bold mb-2 text-terracotta">Proven Frameworks</h4>
-                                <p class="text-darkgray text-sm">I don't guess. I use strategies tested on over 500
-                                    businesses.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-forest text-xl flex-shrink-0">
-                                02</div>
-                            <div>
-                                <h4 class="text-xl font-serif font-bold mb-2 text-terracotta">Accountability</h4>
-                                <p class="text-darkgray text-sm">I'll be the gentle (but firm) push you need to ship
-                                    your best work.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-xl flex-shrink-0">
-                                03</div>
-                            <div>
-                                <h4 class="text-xl font-serif font-bold mb-2 text-terracotta">Community</h4>
-                                <p class="text-darkgray text-sm">Access to my private network of designers, copywriters,
-                                    and tech experts.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 text-xl flex-shrink-0">
-                                04</div>
-                            <div>
-                                <h4 class="text-xl font-serif font-bold mb-2 text-terracotta">Results-Driven</h4>
-                                <p class="text-darkgray text-sm">We focus on metrics that matter: revenue, profit, and
-                                    freedom.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Image -->
-                <div class="order-1 lg:order-2">
-                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                        alt="Diverse Group of Women" class="rounded-lg shadow-xl w-full object-cover h-[500px]">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonial Section -->
-    <section class="py-24 px-4 md:px-8 bg-cream">
-        <div class="max-w-[1000px] mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="h-64 md:h-auto">
-                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                        alt="Testimonial" class="w-full h-full object-cover">
-                </div>
-                <div class="p-12 flex flex-col justify-center">
-                    <div class="flex items-center gap-2 mb-6">
-                        <div
-                            class="w-8 h-8 border border-terracotta flex items-center justify-center text-xs font-bold text-terracotta">
-                            P</div>
-                        <span class="text-xs tracking-widest uppercase text-terracotta font-bold">POLIGON</span>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div
+                    class="service-card group bg-gradient-to-br from-white to-cream-50/30 p-8 rounded-2xl border border-slate-100 hover:border-mauve-200 hover:shadow-xl hover:shadow-mauve-100/40 hover:to-cream-50 transition-all duration-300 reveal-up delay-100">
                     <div
-                        class="inline-block bg-green-100 text-forest text-xs font-bold px-3 py-1 rounded-full mb-6 w-max">
-                        +65% Client Revenue</div>
-                    <blockquote class="text-xl font-serif italic text-terracotta mb-6">
-                        "Elena completely changed how I approach my business. I went from overwhelmed to organized and
-                        saw my revenue double in just 6 months. She is the real deal."
-                    </blockquote>
-                    <cite class="not-italic font-bold text-darkgray">- Sarah Jenkins, Graphic Designer</cite>
+                        class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-slate-900 group-hover:text-white transition-colors">
+                        <i data-lucide="target" class="w-5 h-5 stroke-[1.5]"></i>
+                    </div>
+                    <h3 class="font-semibold text-xl text-slate-900 mb-3">Strategic Alignment</h3>
+                    <p class="text-base text-slate-500 leading-relaxed">Align your personal vision with company goals.
+                        Eliminate friction between leadership tiers.</p>
+                </div>
+                <!-- Card 2 -->
+                <div
+                    class="service-card group bg-gradient-to-br from-white to-cream-50/30 p-8 rounded-2xl border border-slate-100 hover:border-mauve-200 hover:shadow-xl hover:shadow-mauve-100/40 hover:to-cream-50 transition-all duration-300 reveal-up delay-200">
+                    <div
+                        class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-slate-900 group-hover:text-white transition-colors">
+                        <i data-lucide="zap" class="w-5 h-5 stroke-[1.5]"></i>
+                    </div>
+                    <h3 class="font-semibold text-xl text-slate-900 mb-3">High-Impact Decisions</h3>
+                    <p class="text-base text-slate-500 leading-relaxed">Frameworks to make faster, more accurate
+                        decisions
+                        under extreme pressure.</p>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="service-card group bg-gradient-to-br from-white to-cream-50/30 p-8 rounded-2xl border border-slate-100 hover:border-mauve-200 hover:shadow-xl hover:shadow-mauve-100/40 hover:to-cream-50 transition-all duration-300 reveal-up delay-300">
+                    <div
+                        class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-slate-900 group-hover:text-white transition-colors">
+                        <i data-lucide="users" class="w-5 h-5 stroke-[1.5]"></i>
+                    </div>
+                    <h3 class="font-semibold text-xl text-slate-900 mb-3">Cultural Architecture</h3>
+                    <p class="text-base text-slate-500 leading-relaxed">Build resilient teams that self-correct and
+                        perform without constant oversight.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Trusted By Section -->
-    <section class="py-20 px-4 md:px-8 bg-white">
-        <div class="w-full mx-auto text-center">
-            <h3 class="text-2xl font-serif text-terracotta mb-12">As seen in</h3>
-            <!-- DESKTOP VIEW (1 Row) - Hidden on Mobile -->
-            <div class="overflow-hidden w-full hidden md:block">
-                <div class="animate-scroll gap-8">
-                    <!-- Original Set of 8 Logos -->
-                    <div class="flex gap-8 shrink-0">
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">POLIGON</span>
+    <!-- NEW SOCIAL PROOF SECTION -->
+    <section id="social-proof" class="py-32 px-6 bg-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- Floating Logo Scatter Interaction -->
+            <div
+                class="orbit-parent group relative w-full h-[500px] md:h-[600px] flex items-center justify-center mb-24 reveal-up">
+
+                <!-- Center Text -->
+                <div class="relative z-10 text-center">
+                    <div class="w-16 h-1 bg-slate-200 mx-auto mb-6"></div>
+                    <h3 class="font-serif text-4xl md:text-5xl text-slate-900 tracking-tight">Trusted by<br>the boldest.
+                    </h3>
+
+                </div>
+
+                <!-- Circular Gradient Background -->
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-slate-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-1000 ease-out -z-10">
+                </div>
+
+                <!-- Orbit Items -->
+                <div class="orbit-container absolute inset-0 w-full h-full pointer-events-none">
+                    <!-- Item 1: 0deg -->
+                    <div class="orbit-item bg-white border border-slate-100 shadow-lg rounded-2xl flex items-center justify-center text-slate-600"
+                        style="--angle: 0deg;">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <!-- Item 2: 45deg -->
+                    <div class="orbit-item bg-white border border-slate-100 shadow-lg rounded-2xl flex items-center justify-center text-slate-600"
+                        style="--angle: 45deg;">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 12l2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <!-- Item 3: 90deg -->
+                    <div class="orbit-item bg-white border border-slate-100 shadow-lg rounded-2xl flex items-center justify-center text-slate-600"
+                        style="--angle: 90deg;">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                            </path>
+                        </svg>
+                    </div>
+                    <!-- Item 4: 135deg -->
+                    <div class="orbit-item bg-white border border-slate-100 shadow-lg rounded-2xl flex items-center justify-center text-slate-600"
+                        style="--angle: 135deg;">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
+                        </svg>
+                    </div>
+                    <!-- Item 5: 180deg -->
+                    <div class="orbit-item bg-white border border-slate-100 shadow-lg rounded-2xl flex items-center justify-center text-slate-600"
+                        style="--angle: 180deg;">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <!-- Item 6: 225deg -->
+                    <div class="orbit-item bg-white border border-slate-100 shadow-lg rounded-2xl flex items-center justify-center text-slate-600"
+                        style="--angle: 225deg;">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </div>
+                    <!-- Item 7: 270deg -->
+                    <div class="orbit-item bg-white border border-slate-100 shadow-lg rounded-2xl flex items-center justify-center text-slate-600"
+                        style="--angle: 270deg;">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <!-- Item 8: 315deg -->
+                    <div class="orbit-item bg-white border border-slate-100 shadow-lg rounded-2xl flex items-center justify-center text-slate-600"
+                        style="--angle: 315deg;">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial Slider -->
+            <div class="max-w-4xl mx-auto border-t border-slate-100 pt-20 reveal-up delay-200">
+                <div class="text-center">
+                    <i data-lucide="quote" class="w-8 h-8 text-slate-200 mx-auto mb-8 fill-slate-50"></i>
+
+                    <div id="testimonial-container" class="min-h-[200px] relative">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-slide active">
+                            <h4 class="font-serif text-2xl md:text-3xl lg:text-4xl text-slate-900 leading-tight mb-8">
+                                "The level of operational clarity we achieved in just three months was transformative.
+                                Elana doesn't just coach; she architects the future of your leadership."
+                            </h4>
+                            <div class="flex flex-col items-center">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&amp;w=150&amp;auto=format&amp;fit=crop"
+                                    class="w-12 h-12 rounded-full grayscale mb-3 object-cover shadow-inner" alt="User">
+                                <div class="font-semibold text-base text-slate-900">Marcus Chen</div>
+                                <div class="text-xs text-slate-500 uppercase tracking-widest font-medium">Founder,
+                                    Apex Digital</div>
+                            </div>
                         </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">AVENUE</span>
+
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-slide">
+                            <h4 class="font-serif text-2xl md:text-3xl lg:text-4xl text-slate-900 leading-tight mb-8">
+                                "I was drowning in decision fatigue. This program gave me the frameworks to delegate
+                                with confidence and reclaim my strategic vision."
+                            </h4>
+                            <div class="flex flex-col items-center">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&amp;w=150&amp;auto=format&amp;fit=crop"
+                                    class="w-12 h-12 rounded-full grayscale mb-3 object-cover shadow-inner" alt="User">
+                                <div class="font-semibold text-base text-slate-900">Sarah Jenkins</div>
+                                <div class="text-xs text-slate-500 uppercase tracking-widest font-medium">VP of Ops,
+                                    Stripeflow</div>
+                            </div>
                         </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">CIRCLE</span>
-                        </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">FOXHUB</span>
-                        </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">TREVA</span>
-                        </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">GOLDLINE</span>
-                        </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">NATURA</span>
-                        </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">LIGHT</span>
+
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-slide">
+                            <h4 class="font-serif text-2xl md:text-3xl lg:text-4xl text-slate-900 leading-tight mb-8">
+                                "A masterclass in executive presence. The ROI on this coaching engagement was visible in
+                                our very next board meeting."
+                            </h4>
+                            <div class="flex flex-col items-center">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&amp;w=150&amp;auto=format&amp;fit=crop"
+                                    class="w-12 h-12 rounded-full grayscale mb-3 object-cover shadow-inner" alt="User">
+                                <div class="font-semibold text-base text-slate-900">David Ross</div>
+                                <div class="text-xs text-slate-500 uppercase tracking-widest font-medium">CEO,
+                                    Luminar</div>
+                            </div>
                         </div>
                     </div>
-                    <!-- Duplicate Set for Loop -->
-                    <div class="flex gap-8 shrink-0">
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">POLIGON</span>
+
+                    <!-- Slider Controls -->
+                    <div class="flex justify-center gap-3 mt-8">
+                        <button onclick="changeTestimonial(0)"
+                            class="w-2 h-2 rounded-full bg-slate-800 transition-all duration-300 hover:scale-125 t-dot"></button>
+                        <button onclick="changeTestimonial(1)"
+                            class="w-2 h-2 rounded-full bg-slate-200 transition-all duration-300 hover:scale-125 t-dot"></button>
+                        <button onclick="changeTestimonial(2)"
+                            class="w-2 h-2 rounded-full bg-slate-200 transition-all duration-300 hover:scale-125 t-dot"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Me / About (Split Animation) -->
+    <section id="methodology" class="py-32 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            <!-- Left Content (Slides Right) -->
+            <div class="slide-in-right-trigger">
+                <div class="inline-block border-b border-slate-200 pb-1 mb-6">
+                    <span class="text-sm font-semibold uppercase tracking-widest text-slate-400">The Methodology</span>
+                </div>
+                <h2 class="font-serif text-5xl md:text-6xl text-slate-900 tracking-tight mb-8">
+                    Data-driven.<br>
+                    <span class="italic text-slate-400">Human-centric.</span>
+                </h2>
+
+                <div class="space-y-8">
+                    <div class="flex gap-4">
+                        <div class="mt-1">
+                            <div
+                                class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-900 font-serif font-medium">
+                                1</div>
                         </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">AVENUE</span>
+                        <div>
+                            <h4 class="font-semibold text-lg text-slate-900 mb-1">Diagnosis</h4>
+                            <p class="text-base text-slate-500 leading-relaxed">We don't guess. We use 360-degree audits
+                                to understand the root cause of stagnation.</p>
                         </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">CIRCLE</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="mt-1">
+                            <div
+                                class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-900 font-serif font-medium">
+                                2</div>
                         </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">FOXHUB</span>
+                        <div>
+                            <h4 class="font-semibold text-lg text-slate-900 mb-1">Deconstruction</h4>
+                            <p class="text-base text-slate-500 leading-relaxed">Breaking down outdated mental models and
+                                operational bottlenecks.</p>
                         </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">TREVA</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="mt-1">
+                            <div
+                                class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-900 font-serif font-medium">
+                                3</div>
                         </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">GOLDLINE</span>
+                        <div>
+                            <h4 class="font-semibold text-lg text-slate-900 mb-1">Design</h4>
+                            <p class="text-base text-slate-500 leading-relaxed">Rebuilding workflows and leadership
+                                habits
+                                for scalability.</p>
                         </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">NATURA</span>
-                        </div>
-                        <div
-                            class="bg-[#F2EFE9] w-48 h-24 flex items-center justify-center rounded-lg grayscale opacity-70 hover:opacity-100 transition-opacity">
-                            <span class="font-bold text-terracotta tracking-widest">LIGHT</span>
+                    </div>
+                </div>
+
+                <div class="mt-12 flex items-center gap-8">
+                    <div>
+                        <p class="text-3xl font-serif text-slate-900">$50M+</p>
+                        <p class="text-xs uppercase text-slate-400 font-medium mt-1">Client Revenue Generated</p>
+                    </div>
+                    <div class="w-px h-10 bg-slate-200"></div>
+                    <div>
+                        <p class="text-3xl font-serif text-slate-900">12yrs</p>
+                        <p class="text-xs uppercase text-slate-400 font-medium mt-1">Executive Experience</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Content (Slides Left) -->
+            <div class="slide-in-left-trigger relative">
+                <div class="aspect-square bg-slate-100 rounded-sm overflow-hidden relative">
+                    <div class="absolute inset-0 bg-slate-900/10 z-10"></div>
+                    <img src="assets/Elanaside.jpg" alt="Elana Vance Speaker" class="w-full h-full object-cover">
+
+                    <!-- Decorative Graphic -->
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white p-4 z-20 shadow-xl hidden md:block">
+                        <svg viewBox="0 0 100 100" class="w-full h-full animate-[spin_10s_linear_infinite]">
+                            <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                                fill="transparent"></path>
+                            <text class="text-[11px] font-mono uppercase fill-slate-900 tracking-widest">
+                                <textPath href="#circlePath">
+                                    Strategy • Growth • Leadership • Vision •
+                                </textPath>
+                            </text>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i data-lucide="arrow-up-right" class="w-6 h-6 text-slate-900"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- MOBILE VIEW (2 Rows) - Hidden on Desktop -->
-            <div class="w-full md:hidden space-y-4">
+        </div>
+    </section>
 
-                <!-- ROW 1: First 4 Logos -->
-                <div class="overflow-hidden w-full">
-                    <div class="animate-scroll gap-4">
-                        <div class="flex gap-4 shrink-0">
-                            <!-- Logos 1-4 -->
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">POLIGON</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">AVENUE</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">CIRCLE</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">FOXHUB</span>
-                            </div>
-                        </div>
-                        <!-- Duplicate Row 1 -->
-                        <div class="flex gap-4 shrink-0">
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">POLIGON</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">AVENUE</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">CIRCLE</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">FOXHUB</span>
-                            </div>
-                        </div>
+    <!-- Modern Sticky Scroll Section -->
+    <section class="py-16 bg-slate-950 text-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-24 text-center reveal-up">
+                <h2 class="font-serif text-4xl md:text-5xl tracking-tight mb-4">The Growth Pillars</h2>
+                <p class="text-slate-400 max-w-lg mx-auto text-base">Our engagement is built on three fundamental
+                    pillars
+                    designed to stabilize and scale your operations.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative">
+
+                <!-- Left Column: Scrolling Text -->
+                <div class="space-y-24 py-12">
+                    <!-- Item 1 -->
+                    <div class="scroll-item" data-index="0">
+                        <div class="text-accent-500 font-mono text-sm mb-4">01.</div>
+                        <h3 class="text-3xl font-serif mb-6">Executive Presence</h3>
+                        <p class="text-slate-400 leading-relaxed text-xl mb-6">
+                            Command the room without raising your voice. We refine your communication style, negotiation
+                            tactics, and public speaking abilities to ensure your authority is felt, not just heard.
+                        </p>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-4 h-4 text-accent-500"></i> Speech Analysis</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-4 h-4 text-accent-500"></i> Stakeholder Management</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-4 h-4 text-accent-500"></i> Crisis Communication</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="scroll-item" data-index="1">
+                        <div class="text-accent-500 font-mono text-sm mb-4">02.</div>
+                        <h3 class="text-3xl font-serif mb-6">Operational Flow</h3>
+                        <p class="text-slate-400 leading-relaxed text-xl mb-6">
+                            Removing friction from your daily output. We redesign your calendar, your meeting
+                            structures, and your delegation frameworks to reclaim 30% of your time for high-level
+                            strategy.
+                        </p>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-4 h-4 text-accent-500"></i> Calendar Audits</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-4 h-4 text-accent-500"></i> Asynchronous Workflows</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-4 h-4 text-accent-500"></i> KPI Dashboarding</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="scroll-item" data-index="2">
+                        <div class="text-accent-500 font-mono text-sm mb-4">03.</div>
+                        <h3 class="text-3xl font-serif mb-6">Team Architecture</h3>
+                        <p class="text-slate-400 leading-relaxed text-xl mb-6">
+                            Putting the right people in the right seats. We help you identify skill gaps, hire for
+                            culture add (not just culture fit), and build retention systems for top talent.
+                        </p>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-4 h-4 text-accent-500"></i> Org Chart Design</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-4 h-4 text-accent-500"></i> Hiring Playbooks</li>
+                            <li class="flex items-center gap-3"><i data-lucide="check"
+                                    class="w-4 h-4 text-accent-500"></i> Succession Planning</li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- ROW 2: Next 4 Logos -->
-                <div class="overflow-hidden w-full">
-                    <!-- Added 'direction-reverse' if you want them sliding opposite, otherwise keep same -->
-                    <div class="animate-scroll gap-4" style="animation-direction: reverse;">
-                        <div class="flex gap-4 shrink-0">
-                            <!-- Logos 5-8 -->
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">TREVA</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">GOLDLINE</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">NATURA</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">LIGHT</span>
-                            </div>
-                        </div>
-                        <!-- Duplicate Row 2 -->
-                        <div class="flex gap-4 shrink-0">
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">TREVA</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">GOLDLINE</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">NATURA</span>
-                            </div>
-                            <div
-                                class="bg-[#F2EFE9] w-36 h-20 flex items-center justify-center rounded-lg grayscale opacity-70">
-                                <span class="font-bold text-terracotta tracking-widest text-sm">LIGHT</span>
-                            </div>
-                        </div>
+                <!-- Right Column: Sticky Images -->
+                <div
+                    class="relative h-[500px] lg:h-[calc(100vh-140px)] lg:sticky lg:top-24 hidden lg:block rounded-2xl overflow-hidden bg-slate-900 border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&amp;w=2664&amp;auto=format&amp;fit=crop"
+                        class="sticky-img active" data-index="0" alt="Executive Presence">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&amp;w=2070&amp;auto=format&amp;fit=crop"
+                        class="sticky-img" data-index="1" alt="Operational Flow">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&amp;w=2070&amp;auto=format&amp;fit=crop"
+                        class="sticky-img" data-index="2" alt="Team Architecture">
+
+                    <!-- Overlay Gradient -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80">
                     </div>
                 </div>
 
@@ -610,121 +733,325 @@
         </div>
     </section>
 
-    <!-- Footer CTA -->
-    <section class="py-12 px-4 md:px-8 max-w-[1200px] mx-auto">
-        <div class="bg-[#EBE5DA] rounded-2xl p-8 md:p-16 flex flex-col md:flex-row items-center gap-12">
-            <div class="w-full md:w-1/3 relative">
-                <div class="absolute top-4 left-4 w-full h-full bg-accentOrange rounded-lg -z-10"></div>
-                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                    alt="CTA" class="rounded-lg shadow-lg w-full object-cover h-64">
+    <!-- Pricing -->
+    <section id="pricing" class="py-24 px-6 bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal-up">
+                <h2 class="font-serif text-4xl md:text-5xl text-slate-900 tracking-tight mb-4">Investment Plans</h2>
+                <p class="text-base text-slate-500">Clear pricing for clear results.</p>
             </div>
-            <div class="w-full md:w-2/3">
-                <h2 class="text-3xl md:text-4xl font-serif font-medium mb-4 text-terracotta text-center md:text-left">
-                    Ready to scale your vision?</h2>
-                <p class="text-darkgray mb-6 text-center md:text-left">Send me a message to get started.</p>
 
-                <form class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" placeholder="Name"
-                            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-terracotta bg-white/50 placeholder-gray-500">
-                        <input type="email" placeholder="Email"
-                            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-terracotta bg-white/50 placeholder-gray-500">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+
+                <!-- Plan 1 -->
+                <div
+                    class="bg-white p-8 rounded-2xl border border-slate-200 hover:border-slate-300 transition-colors reveal-up delay-100">
+                    <h3 class="font-semibold text-slate-900 mb-2">The Intensive</h3>
+                    <p class="text-sm text-slate-500 mb-6 h-8">For founders needing a specific problem solved quickly.
+                    </p>
+                    <div class="text-3xl font-serif text-slate-900 mb-6">$2,500<span
+                            class="text-sm font-sans text-slate-400">/mo</span></div>
+                    <button
+                        class="w-full py-2.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors mb-8">Get
+                        Started</button>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-slate-400"></i> 2 Strategy Calls / mo</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-slate-400"></i> Email Support</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-slate-400"></i> Quarterly Audit</li>
+                    </ul>
+                </div>
+
+                <!-- Plan 2 (Highlighted) -->
+                <div
+                    class="bg-slate-900 p-8 rounded-2xl shadow-xl transform md:-translate-y-4 reveal-up delay-200 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4">
+                        <span
+                            class="bg-accent-500 text-white text-[10px] uppercase font-bold px-2 py-1 rounded">Popular</span>
                     </div>
-                    <textarea placeholder="Message" rows="3"
-                        class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:border-terracotta bg-white/50 placeholder-gray-500"></textarea>
-                    <button type="submit"
-                        class="w-full bg-forest text-white px-8 py-3 rounded-lg font-semibold btn-hover">Send
-                        Message</button>
-                </form>
+                    <h3 class="font-semibold text-white mb-2">Executive Partner</h3>
+                    <p class="text-sm text-slate-400 mb-6 h-8">Ongoing partnership for scaling operations.</p>
+                    <div class="text-3xl font-serif text-white mb-6">$5,000<span
+                            class="text-sm font-sans text-slate-500">/mo</span></div>
+                    <button
+                        class="w-full py-2.5 rounded-lg bg-white text-slate-900 text-xs font-semibold hover:bg-slate-100 transition-colors mb-8">Apply
+                        Now</button>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-accent-500"></i> Weekly Strategy Sprints</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-accent-500"></i> Private Slack Channel</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-accent-500"></i> Team Assessments</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-accent-500"></i> Networking Access</li>
+                    </ul>
+                </div>
+
+                <!-- Plan 3 -->
+                <div
+                    class="bg-white p-8 rounded-2xl border border-slate-200 hover:border-slate-300 transition-colors reveal-up delay-300">
+                    <h3 class="font-semibold text-slate-900 mb-2">Corporate</h3>
+                    <p class="text-sm text-slate-500 mb-6 h-8">For leadership teams of 5+ executives.</p>
+                    <div class="text-3xl font-serif text-slate-900 mb-6">Custom</div>
+                    <button
+                        class="w-full py-2.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors mb-8">Contact
+                        Sales</button>
+                    <ul class="space-y-3 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-slate-400"></i> Team Workshops</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-slate-400"></i> Conflict Resolution</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle"
+                                class="w-3.5 h-3.5 text-slate-400"></i> On-site Days</li>
+                    </ul>
+                </div>
+
             </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 px-6 bg-white border-t border-slate-100">
+        <div class="max-w-2xl mx-auto reveal-up">
+            <div class="text-center mb-12">
+                <div
+                    class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-50 text-slate-900 mb-4">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl text-slate-900 tracking-tight mb-4">Ready to elevate?</h2>
+                <p class="text-base text-slate-500">Applications are reviewed within 24 hours.</p>
+            </div>
+
+            <form class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-xs uppercase font-semibold text-slate-500 tracking-wider">First
+                            Name</label>
+                        <input type="text"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-slate-900 focus:ring-0 transition-colors"
+                            placeholder="Jane">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-xs uppercase font-semibold text-slate-500 tracking-wider">Last
+                            Name</label>
+                        <input type="text"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-slate-900 focus:ring-0 transition-colors"
+                            placeholder="Doe">
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs uppercase font-semibold text-slate-500 tracking-wider">Work Email</label>
+                    <input type="email"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-slate-900 focus:ring-0 transition-colors"
+                        placeholder="jane@company.com">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs uppercase font-semibold text-slate-500 tracking-wider">Challenge</label>
+                    <textarea
+                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-slate-900 focus:ring-0 transition-colors h-32 resize-none"
+                        placeholder="Briefly describe what you're looking to solve..."></textarea>
+                </div>
+                <button
+                    class="w-full bg-slate-900 text-white font-medium text-base py-4 rounded-lg hover:bg-slate-800 transition-all hover:shadow-lg mt-4">
+                    Submit Application
+                </button>
+            </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="pt-20 pb-10 px-4 md:px-8 max-w-[1200px] mx-auto border-t border-gray-200 mt-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-            <div>
-                <h2 class="text-5xl font-serif text-terracotta mb-6">Let's create magic.</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div>
-                    <h4 class="font-bold text-terracotta mb-4 uppercase tracking-wider text-sm">Contact</h4>
-                    <p class="text-darkgray mb-2">+1 (555) 987-6543</p>
-                    <p class="text-darkgray">elena@elenavance.com</p>
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-8 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-16 gap-12">
+                <div class="max-w-xs">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 bg-slate-900 rounded flex items-center justify-center text-white">
+                            <span class="font-serif font-italic text-xs">E</span>
+                        </div>
+                        <span class="font-semibold text-sm tracking-tight text-slate-900">Elana Vance</span>
+                    </div>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Redefining executive coaching through data, strategy, and human-centric design.
+                    </p>
                 </div>
-                <div>
-                    <h4 class="font-bold text-terracotta mb-4 uppercase tracking-wider text-sm">Operational Hours</h4>
-                    <p class="text-darkgray mb-2">Mon - Fri: 9am - 6pm</p>
-                    <p class="text-darkgray">Sat - Sun: Closed</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-16">
+                    <div>
+                        <h4 class="text-xs uppercase font-bold text-slate-900 tracking-widest mb-4">Platform</h4>
+                        <ul class="space-y-2 text-sm text-slate-500">
+                            <li><a href="#" class="hover:text-slate-900 transition-colors">Methodology</a></li>
+                            <li><a href="#" class="hover:text-slate-900 transition-colors">Case Studies</a></li>
+                            <li><a href="#" class="hover:text-slate-900 transition-colors">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xs uppercase font-bold text-slate-900 tracking-widest mb-4">Company</h4>
+                        <ul class="space-y-2 text-sm text-slate-500">
+                            <li><a href="#" class="hover:text-slate-900 transition-colors">About Elana</a></li>
+                            <li><a href="#" class="hover:text-slate-900 transition-colors">Speaking</a></li>
+                            <li><a href="#" class="hover:text-slate-900 transition-colors">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="hidden md:block">
+                        <h4 class="text-xs uppercase font-bold text-slate-900 tracking-widest mb-4">Social</h4>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-slate-400 hover:text-slate-900 transition-colors"><i
+                                    data-lucide="linkedin" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-slate-400 hover:text-slate-900 transition-colors"><i
+                                    data-lucide="twitter" class="w-4 h-4"></i></a>
+                            <a href="#" class="text-slate-400 hover:text-slate-900 transition-colors"><i
+                                    data-lucide="instagram" class="w-4 h-4"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div
-            class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 pt-8 border-t border-gray-200">
-            <p>&copy; 2025 Elena Vance. All rights reserved.</p>
-            <div class="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" class="hover:text-terracotta">Privacy Policy</a>
-                <a href="#" class="hover:text-terracotta">Terms of Service</a>
+
+            <div
+                class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400">
+                <p>© 2024 Elana Vance Coaching. All rights reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-slate-600">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-600">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Logic -->
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
+        // Init Icons
+        lucide.createIcons();
 
-        function openMenu() {
-            mobileMenu.classList.remove('translate-x-full');
-        }
+        // 1. General Reveal Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
 
-        function closeMenu() {
-            mobileMenu.classList.add('translate-x-full');
-        }
-
-        mobileMenuBtn.addEventListener('click', openMenu);
-        closeMenuBtn.addEventListener('click', closeMenu);
-
-        // Smooth Scroll for Anchor Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
                 }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-up, .slide-in-right-trigger, .slide-in-left-trigger').forEach(el => observer.observe(el));
+
+        // 2. Sticky Scroll Image Switcher Logic
+        const stickyImages = document.querySelectorAll('.sticky-img');
+        const scrollItems = document.querySelectorAll('.scroll-item');
+
+        const scrollObserverOptions = {
+            root: null,
+            rootMargin: '-40% 0px -40% 0px',
+            threshold: 0
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = entry.target.getAttribute('data-index');
+
+                    // Update Images
+                    stickyImages.forEach(img => img.classList.remove('active'));
+                    const activeImg = document.querySelector(`.sticky-img[data-index="${index}"]`);
+                    if (activeImg) activeImg.classList.add('active');
+
+                    // Update Text Glow
+                    scrollItems.forEach(item => {
+                        const title = item.querySelector('h3');
+                        if (title) title.classList.remove('text-glow');
+                    });
+                    const activeItem = document.querySelector(`.scroll-item[data-index="${index}"]`);
+                    if (activeItem) {
+                        const title = activeItem.querySelector('h3');
+                        if (title) title.classList.add('text-glow');
+                    }
+                }
+            });
+        }, scrollObserverOptions);
+
+        scrollItems.forEach(item => scrollObserver.observe(item));
+
+        // 3. Navbar background opacity on scroll
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-sm', 'bg-white/80');
+                nav.classList.remove('glass-nav');
+            } else {
+                nav.classList.remove('shadow-sm', 'bg-white/80');
+                nav.classList.add('glass-nav');
+            }
+        });
+
+        // 4. Testimonial Slider Logic
+        let currentTestimonial = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.t-dot');
+
+        function changeTestimonial(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => {
+                dot.classList.remove('bg-slate-800');
+                dot.classList.add('bg-slate-200');
+            });
+
+            slides[index].classList.add('active');
+            dots[index].classList.remove('bg-slate-200');
+            dots[index].classList.add('bg-slate-800');
+            currentTestimonial = index;
+        }
+
+        // Auto advance testimonials every 6 seconds
+        setInterval(() => {
+            let next = currentTestimonial + 1;
+            if (next >= slides.length) next = 0;
+            changeTestimonial(next);
+        }, 6000);
+
+        // 5. Parallax Effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            document.querySelectorAll('.parallax-bg').forEach(el => {
+                const speed = parseFloat(el.getAttribute('data-speed'));
+                const x = (window.innerWidth - e.pageX * speed) / 100;
+                const y = (window.innerHeight - e.pageY * speed) / 100;
+
+                el.style.transform = `translateX(${x}px) translateY(${y}px)`;
             });
         });
 
-        // Parallax Effect for Hero Image
-        window.addEventListener('scroll', function () {
-            const image = document.getElementById('hero-image');
-            if (image) {
-                // The 0.2 controls the speed. 
-                // Positive numbers move it down (slower than scroll).
-                // Negative numbers would move it up (faster than scroll).
-                const speed = 0.2;
-                image.style.transform = `translateY(${window.scrollY * speed}px)`;
-            }
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            document.querySelectorAll('.parallax-element').forEach(el => {
+                const speed = parseFloat(el.getAttribute('data-speed'));
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
         });
+
+        // 6. Mobile Service Card Scroll Effect
+        const serviceCards = document.querySelectorAll('.service-card');
+        const serviceObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('service-mobile-active');
+                } else {
+                    entry.target.classList.remove('service-mobile-active');
+                }
+            });
+        }, { threshold: 0.6, rootMargin: "-10% 0px -10% 0px" });
+
+        serviceCards.forEach(card => serviceObserver.observe(card));
     </script>
 
-    <!-- Floating WhatsApp Widget -->
-    <a href="https://wa.me/15551234567" target="_blank"
-        class="fixed bottom-8 right-8 z-50 bg-forest text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 flex items-center justify-center group">
-        <i class="ph ph-whatsapp-logo text-3xl"></i>
-        <!-- Optional Tooltip -->
-        <span
-            class="absolute right-full mr-4 bg-white text-gray-800 px-3 py-1 rounded-lg text-sm font-medium shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-            Chat with me!
-        </span>
-    </a>
 </body>
 
 </html>
